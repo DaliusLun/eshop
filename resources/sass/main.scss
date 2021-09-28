@@ -1,0 +1,119 @@
+.chain {
+    text-decoration: none;
+    font-family: "Trebuchet MS", "Times New Roman", Times, serif;
+    color: #000 !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: black;
+}
+.chain:hover {
+    text-decoration: underline;
+}
+
+.chain-last {
+    font-weight: bold;
+}
+
+.item-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 10px;
+    padding: 10px;
+
+    .item {
+        background-color: rgb(238, 237, 237);
+        text-align: center;
+        padding: 10px;
+        font-size: 30px;
+        height:400px;
+        display: inline-block;
+        cursor: pointer;
+        border-radius: 10px;
+        position: relative;
+
+        a {
+            color: black;
+            text-decoration: none !important;
+        }
+        .item__sale {
+            position: absolute;
+            border-radius: 2px;
+            height:30px;
+            width: 30px;
+            border: 1px solid black;
+            font-size: 16px;
+            text-align: center;
+            background-color: rgb(64, 64, 182);
+            color: white;
+            vertical-align: middle;
+            
+
+        }
+        .item__name {
+
+        }
+        .item__photo {
+            display: block;
+            width:70%;
+            height: 150px;
+            margin: 3px auto;
+            position: relative;
+
+            img {
+                position: absolute;
+                top: 50%;
+                bottom: 50%;
+                transform:translate(-50%,-50%);
+                max-height: 150px;
+                border-radius: 5px;
+            }
+        }
+    
+        .item__price {
+
+        }
+
+        .discount {
+            text-decoration: line-through;
+            color: grey;
+            font-size: 18px;
+        }
+
+        .with-discount {
+            color: red;
+        }
+    }
+
+    .item:hover {
+        transition: box-shadow 0.1s ease-in-out;
+        box-shadow: 0px 0px 3px 3px #cacaca;
+    }
+
+}
+@media screen and (max-width: 992px) {
+    .item-container {
+        grid-template-columns: auto auto auto;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .item-container {
+        grid-template-columns: auto auto;
+    }
+  }
+
+@media screen and (max-width: 480px) {
+    .item-container {
+        grid-template-columns: auto;
+    }
+  }
+
+
+
+
+
+// Min-width: 320px (smaller phone viewpoints)
+// Min-width: 480px (small devices and most phones)
+// Min-width: 768px (most tablets)
+// Min-width: 992px (smaller desktop viewpoints)
+// Min-width: 1200px (large devices and wide screens)
