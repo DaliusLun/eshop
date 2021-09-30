@@ -148,20 +148,22 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Category $category)
+    public function destroy(Category $category)
     {
-
-        $categoryParameters = CategoryParameter::where('category_id', '=', $category->id)->get();
-
-        // $categoryParameters[0]->delete();
-
-        foreach ($category->parameters as $parameter) {
-            $iP =  CategoryParameter::where('category_id', '=', $category->id)
-            ->where("parameter_id",'=', $parameter->id)->first();
-            // $iP->data = $request->input($parameter->id);
-            $iP->delete();
+        $items = Item::where('category_id', '=', $category->id)->get();
+        if (count($items)>0) {
+            return redirect()->back()->withErrors("Pašalinti negalima, nes kategorijoje yra prekių.");
         }
 
+        CategoryParameter::where('category_id', '=', $category->id)->delete();
+
+        // $categoryParameters = CategoryParameter::where('category_id', '=', $category->id)->get();
+
+        // foreach ($category->parameters as $parameter) {
+        //     $iP =  CategoryParameter::where('category_id', '=', $category->id)
+        //     ->where("parameter_id",'=', $parameter->id)->first();
+        //     $iP->delete();
+        // }
 
         $category->delete();
         return redirect()->back()->with('success_message', 'Kategorija sėkmingai pašalinta.');

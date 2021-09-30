@@ -51,9 +51,7 @@
 }
 .item-container .item .item__photo {
   display: block;
-  width: 70%;
   height: 150px;
-  margin: 3px auto;
   position: relative;
 }
 .item-container .item .item__photo img {
@@ -63,6 +61,12 @@
   transform: translate(-50%, -50%);
   max-height: 150px;
   border-radius: 5px;
+}
+.item-container .item .item__price {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  align-items: center;
 }
 .item-container .item .discount {
   text-decoration: line-through;

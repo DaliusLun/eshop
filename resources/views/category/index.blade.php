@@ -41,7 +41,7 @@
                     </div>
                 @endif
                 <div class="card-header">
-                    <a href="{{route('category.index')}}">HOME</a><br>
+                    <!-- <a href="{{route('category.index')}}">HOME</a><br> -->
                     @foreach ($chain as $item)
                         @if(next($chain))
                             <a class="chain" href="{{route('category.map',$item)}}">{{$item->name}}</a> >
@@ -108,7 +108,8 @@
                             @endif
                         </div>
                         @if($item->discount>0)
-                            <div class="item__price discount">{{$item->price}} €</div>
+                            <div class="item__price discount">{{$item->price}} €
+                            </div>
                             <div class="item__price with-discount">{{$item->price - $item->discount}} €</div>
                         @else
                             <div class="item__price">{{$item->price - $item->discount}} €</div>
@@ -122,7 +123,7 @@
         </div>
         
     @endif
-<!-- 
+
     @if(count($chain) > 0 && count($items) > 0) 
 
         <div class="row justify-content-center">
@@ -165,7 +166,7 @@
                 </div>
             </div>
         </div>
-    @endif -->
+    @endif
     
     @if(count($categories)==0 && count($items)==0)
         <br>
