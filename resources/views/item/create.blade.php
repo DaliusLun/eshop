@@ -27,6 +27,10 @@
                         <label>Nuolaida</label>
                         <input type="text" name="discount"  class="form-control">
                         <input type="hidden" name="category_id" value="{{$category->id}}">
+                        <br>
+                        <label>Rodyti prekę</label>
+                        <input type="checkbox" name="show">
+                        <br>
                         @foreach ($params as $parameter)
                             <br>
                             <label>{{$parameter[0]->title}}</label>

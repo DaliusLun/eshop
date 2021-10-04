@@ -47,14 +47,16 @@ class ItemController extends Controller
      */
     public function store(Request $request, Category $category)
     {
-
-
         $item = new Item;
         $item->name = $request->name;
         $item->price = $request->price;
         $item->description = $request->description;
         $item->manufacturer = $request->manufacturer;
         $item->quantity = $request->quantity;
+        $item->status = 0;
+        if(isset($request->show)) {
+            $item->status = 10;
+        }
         $item->category_id = $request->category_id;
         $item->discount = $request->discount;
         $category = Category::find($request->category_id);
@@ -78,7 +80,6 @@ class ItemController extends Controller
                 $photo->name = $fileName;
                 $photo->item_id = $item->id;
                 $photo->save();
-
             }
         }
 
@@ -91,9 +92,11 @@ class ItemController extends Controller
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item)
+    public function show(Item $item, Request $request)
     {
-        return view('item.show',['item'=> $item]);
+        $id = ((($request->id/17)-7)/7); //fake id create
+        $item = Item::where("id",'=', $id)->get();
+        return view('item.show',['item' => $item[0], 'id' => $id]);
     }
 
     /**
@@ -102,7 +105,7 @@ class ItemController extends Controller
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function edit( Item $item,Category $category)
+    public function edit(Item $item, Category $category)
     {
         return view('item.edit',['item' => $item, 'category' => $category]);
     }
@@ -121,6 +124,10 @@ class ItemController extends Controller
         $item->price = $request->price;
         $item->description = $request->description;
         $item->quantity = $request->quantity;
+        $item->status = 0;
+        if(isset($request->show)) {
+            $item->status = 10;
+        }
         $item->discount = $request->discount;
         $item->save();
         foreach ($item->parameters as $parameter) {

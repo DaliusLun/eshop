@@ -41,8 +41,9 @@ class CategoryController extends Controller
         }
         $_SESSION['chain'] = $tmpSs;
         $categories = Category::where('category_id','=',$category->id)->get();
-        $items = Item::where('category_id', '=', $category->id)->get();
-        
+        // $items = Item::where('category_id', '=', $category->id)->where('status', '=', 10)->get();
+        $items = Item::where('category_id', '=', $category->id)->orderBy("status", "desc")->get();
+ 
         return view('category.index',['categories'=> $categories,'items'=> $items,'chain'=>$_SESSION['chain']]);
     }
     /**

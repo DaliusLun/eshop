@@ -6,6 +6,11 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header"><a href="javascript:history.back()">< Grįžti atgal</a></div>
+                <div class="show__photo">
+                                @if (count($item->photos)>0)
+                                    <img class="photo__big" src="{{asset('/itemPhotos/big/'.$item->photos[0]->name)}}" alt="">
+                                @endif
+                            </div>
                 <div class="card-body">
                 <table class="table">
                     <thead>

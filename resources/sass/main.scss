@@ -4,8 +4,8 @@
     color: #000 !important;
     text-transform: uppercase;
     cursor: pointer;
-    color: black;
 }
+
 .chain:hover {
     text-decoration: underline;
 }
@@ -16,19 +16,19 @@
 
 .item-container {
     display: grid;
-    grid-template-columns: auto auto auto auto;
-    grid-gap: 10px;
+    // grid-gap: 10px;
     padding: 10px;
+    grid-template-columns: repeat(4, 1fr);
 
     .item {
-        background-color: rgb(238, 237, 237);
+        border:1px rgb(226, 226, 226) solid;
         text-align: center;
         padding: 10px;
         font-size: 30px;
-        height:400px;
+        height:450px;
         display: inline-block;
         cursor: pointer;
-        border-radius: 10px;
+        border-radius: 2px;
         position: relative;
 
         a {
@@ -38,12 +38,11 @@
         .item__sale {
             position: absolute;
             border-radius: 2px;
-            height:30px;
-            width: 30px;
-            border: 1px solid black;
+            height:28px;
+            width: 28px;
             font-size: 16px;
             text-align: center;
-            background-color: rgb(64, 64, 182);
+            background-color: green;
             color: white;
             vertical-align: middle;
             
@@ -74,8 +73,6 @@
             align-items: center;
         }
 
-
-
         .discount {
             text-decoration: line-through;
             color: grey;
@@ -85,6 +82,15 @@
         .with-discount {
             color: red;
         }
+
+        .sold {
+            font-size: 15px;
+        }
+    
+        .notavailable {
+            font-size: 15px;
+        }
+
     }
 
     .item:hover {
@@ -92,7 +98,25 @@
         box-shadow: 0px 0px 3px 3px #cacaca;
     }
 
+    .disabled {
+        filter: grayscale(100%);
+    }
+
+
 }
+
+.show__photo {
+    display: inline-block;
+    text-align: center;
+
+    .photo__big {
+        max-width: 100%;
+        padding: 10px;
+        max-height: 500px;
+        border-radius: 20px;
+    }
+}
+
 @media screen and (max-width: 992px) {
     .item-container {
         grid-template-columns: auto auto auto;

@@ -17,4 +17,18 @@ class Item extends Model
     {
         return $this->hasMany(Photo::class);
     }
+
+    public function ifDisabled()
+    {
+        if($this->status == 0 || $this->quantity == 0) {
+            return "disabled";
+        }
+    }
+
+    public function checkboxStatus()
+    {
+        if($this->status !== 0) {
+            return "checked";
+        }
+    }
 }

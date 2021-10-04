@@ -2089,6 +2089,16 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/API.js":
+/*!*****************************!*\
+  !*** ./resources/js/API.js ***!
+  \*****************************/
+/***/ (() => {
+
+console.log("test");
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -2123,6 +2133,8 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 var app = new Vue({
   el: '#app'
 });
+
+__webpack_require__(/*! ./API */ "./resources/js/API.js");
 
 /***/ }),
 

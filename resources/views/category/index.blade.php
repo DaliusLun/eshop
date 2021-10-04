@@ -94,31 +94,52 @@
     @if(count($chain) > 0 && count($items) > 0) 
         <div class="item-container">
             @foreach ($items as $item)
-                <div class="item">
-                    <a href="{{route('item.show',[$item])}}">
-                        @if($item->discount>0)
-                            <div class="item__sale">%</div>
-                        @endif
-                        <div class="item__name">{{$item->name}}</div>
-                        <div class="item__photo">
-                            @if (count($item->photos)>0)
-                                <img src="{{asset('/itemPhotos/small/'.$item->photos[0]->name)}}" alt="">
-                            @else
-                            <img src="{{asset('/itemPhotos/small/default.png')}}" alt="">
+                @if($item->status!=0 || (Auth::user() && Auth::user ()->isAdmin()))
+                    <div class="item {{$item->ifDisabled()}}">
+                        <a href="{{route('item.show',((($item->id*7)+7)*17))}}">
+                            @if($item->discount>0)
+                                <div class="item__sale">%</div>
                             @endif
-                        </div>
-                        @if($item->discount>0)
-                            <div class="item__price discount">{{$item->price}} €
+                            <div class="item__name">{{$item->name}}</div>
+                            <div class="item__photo">
+                                @if (count($item->photos)>0)
+                                    <img src="{{asset('/itemPhotos/small/'.$item->photos[0]->name)}}" alt="">
+                                @else
+                                    <img src="{{asset('/itemPhotos/small/default.png')}}" alt="">
+                                @endif
                             </div>
-                            <div class="item__price with-discount">{{$item->price - $item->discount}} €</div>
-                        @else
-                            <div class="item__price">{{$item->price - $item->discount}} €</div>
-                        @endif
-                            <a href="#">
-                                <button class="btn btn-primary">Į krepšelį</button>
-                            </a>
-                    </a>
-                </div>
+                            @if($item->discount>0)
+                                <div class="item__price discount">{{$item->price}} €</div>
+                                <div class="item__price with-discount">{{$item->price - $item->discount}} €</div>
+                            @else
+                                <div class="item__price">{{$item->price - $item->discount}} €</div>
+                            @endif
+                            @if($item->quantity == 0)
+                                <div class="sold">Prekė išparduota</div>
+                            @elseif($item->status == 0)
+                                <div class="notavailable">Prekė šiuo metu neparduodama</div>
+                            @else
+                                <a href="#">
+                                    <button class="btn btn-primary ">Į krepšelį</button>
+                                </a>
+                                <a href="##">
+                                        <div class="fa fa-heart"></div>
+                                        <div class="fa fa-heart-o"></div>
+                                </a>
+                                <br>
+                            @endif
+                            @if(Auth::user() && Auth::user()->isAdmin()) 
+                                <a href="{{route('item.edit',[$item,$chain[count($chain)-1]])}}">
+                                    <button class="btn btn-warning">Koreguoti</button>
+                                </a>
+                                <form style="display:inline-block" method="POST" action="{{route('item.destroy', [$item])}}">
+                                    @csrf
+                                    <button class="btn btn-danger" type="submit" >Pašalinti</button>
+                                </form>
+                            @endif
+                        </a>
+                    </div>
+                @endif
             @endforeach
         </div>
         

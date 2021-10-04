@@ -55,7 +55,7 @@ Route::group(['prefix' => 'categories'], function(){
     Route::get('edit/{item}&{category}', [ItemController::class, 'edit'])->name('item.edit');
     Route::post('update/{item}', [ItemController::class, 'update'])->name('item.update');
     Route::post('delete/{item}', [ItemController::class, 'destroy'])->name('item.destroy');
-    Route::get('show/{item}', [ItemController::class, 'show'])->name('item.show');
+    Route::get('show/{id}', [ItemController::class, 'show'])->name('item.show');
  });
 
 
