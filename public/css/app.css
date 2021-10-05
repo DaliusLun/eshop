@@ -91,11 +91,21 @@
   display: inline-block;
   text-align: center;
 }
-.show__photo .photo__big {
+
+.container__photos {
+  display: flex;
+}
+.container__photos .photos__column {
+  width: 15%;
+  min-width: 70px;
+}
+.container__photos .photos__column .photo__small {
+  width: 100%;
+  padding: 15px;
+}
+.container__photos .container .photo__big {
   max-width: 100%;
-  padding: 10px;
-  max-height: 500px;
-  border-radius: 20px;
+  padding: 5px;
 }
 
 @media screen and (max-width: 992px) {
