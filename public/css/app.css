@@ -98,6 +98,7 @@
 .container__photos .photos__column {
   width: 15%;
   min-width: 70px;
+  margin: 5px;
 }
 .container__photos .photos__column .photo__small {
   width: 100%;
@@ -106,6 +107,11 @@
 .container__photos .container .photo__big {
   max-width: 100%;
   padding: 5px;
+  margin: 5px;
+}
+
+.border {
+  border: 1px solid black;
 }
 
 @media screen and (max-width: 992px) {

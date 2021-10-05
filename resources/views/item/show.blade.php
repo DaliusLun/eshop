@@ -14,10 +14,11 @@
                 @if(count($item->photos)>0)
                 <div class="container__photos">
                     <div class="photos__column">
-
+                    <form name="form" action="" method="get">
                         @foreach ($item->photos as $photo)
-                            <img class="photo__small" src="{{asset('/itemPhotos/big/'.$photo->name)}}" onclick="myFunction(this);">
+                            <img class="photo__small" src="{{asset('/itemPhotos/big/'.$photo->name)}}" onclick="imgExpand(this);">
                         @endforeach
+                    </form>
                     </div>
 
                     <div class="container">
@@ -66,17 +67,36 @@
         </div>
     </div>
 </div>
+
 <script>
-function myFunction(imgs) {
-  var expandImg = document.getElementById("expandedImg");
-  var imgText = document.getElementById("imgtext");
-  expandImg.src = imgs.src;
-  imgText.innerHTML = imgs.alt;
-  expandImg.parentElement.style.display = "block";
+function imgExpand(imgs) {
+
+    let expandImg = document.getElementById("expandedImg");
+    let imgText = document.getElementById("imgtext");
+    expandImg.src = imgs.src;
+
+    let a = document.getElementsByClassName('photo__small');
+    for (i = 0; i < a.length; i++) {
+        a[i].classList.remove('border')
+    }
+    imgs.classList.add('border');
+    
 }
 
-document.addEventListener("DOMContentLoaded", function(){
-    console.log("op");
-});
+
+    // border on first photo on page load
+
+
+
+function borderOnFirstPhotoOnPageLoad() {
+    let imgs = document.getElementsByClassName('photo__small');
+    let firstImg = imgs[0];
+    firstImg.className += ' border';
+}
+
+
+borderOnFirstPhotoOnPageLoad();
+
+
 </script>
 @endsection

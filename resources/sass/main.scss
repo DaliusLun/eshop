@@ -101,15 +101,11 @@
     .disabled {
         filter: grayscale(100%);
     }
-
-
 }
 
 .show__photo {
     display: inline-block;
     text-align: center;
-
-
 }
 
 .container__photos {
@@ -118,24 +114,25 @@
     .photos__column {
         width: 15%;
         min-width: 70px;
+        margin: 5px;
 
         .photo__small {
             width:100%;
             padding:15px;
-
         }
-
-
-
-
     }
 
     .container {
         .photo__big {
             max-width: 100%;
             padding:5px;
+            margin: 5px;
         }
     }
+}
+
+.border {
+    border: 1px solid black;
 }
 
 @media screen and (max-width: 992px) {
