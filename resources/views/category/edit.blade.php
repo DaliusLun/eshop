@@ -15,9 +15,7 @@
                   <div class="form-group">
                      <label>Tėvinė kategorija</label>
                      <select class="form-control" name="category_id">
-                        <option value=""> 
-                           Be kategorijos
-                        </option>
+                        <option value="">Be kategorijos</option>
                         @foreach ($categories as $categoriesOne)
                            <option <?php echo $categoriesOne->id === $category->category_id ? 'selected':''?> value="{{$categoriesOne->id}}"> 
                               {{$categoriesOne->name}}

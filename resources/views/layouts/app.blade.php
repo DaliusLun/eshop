@@ -39,6 +39,9 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{route('category.index')}}">Home<span class="sr-only"></span></a>
+                    </li>
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -46,16 +49,12 @@
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
-
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{route('category.index')}}">Home<span class="sr-only"></span></a>
-                        </li>
                         <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                    Kategorijos
@@ -66,7 +65,6 @@
                                    </a>
                                </div>
                            </li>
-
                            <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                    Parametrai
@@ -79,19 +77,16 @@
                                         Pridėti parametrą
                                    </a>
                            </li>
-
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
-
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Atsijungti') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
@@ -102,7 +97,6 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
             <div class="container">
                         <div class="row justify-content-center">
@@ -127,7 +121,6 @@
                                         {{session()->get('success_message')}}
                                     </div>
                                 @endif
-                                
                                 @if(session()->has('info_message'))
                                     <div class="alert alert-info" role="alert">
                                         {{session()->get('info_message')}}
@@ -136,9 +129,7 @@
                             </div>
                         </div>
                     </div>
-
             @yield('content')
-
         </main>
     </div>
 </body>

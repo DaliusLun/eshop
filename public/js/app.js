@@ -2089,16 +2089,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/API.js":
-/*!*****************************!*\
-  !*** ./resources/js/API.js ***!
-  \*****************************/
-/***/ (() => {
-
-
-
-/***/ }),
-
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -2110,6 +2100,9 @@ __webpack_require__.r(__webpack_exports__);
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+var _require = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"),
+    isSet = _require.isSet;
+
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js")["default"];
@@ -2133,8 +2126,11 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 var app = new Vue({
   el: '#app'
 });
+var itemblade = document.getElementById('itemblade');
 
-__webpack_require__(/*! ./API */ "./resources/js/API.js");
+if (typeof itemblade != 'undefined' && itemblade != null) {
+  __webpack_require__(/*! ./itemPhotos */ "./resources/js/itemPhotos.js");
+}
 
 /***/ }),
 
@@ -2179,6 +2175,38 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/itemPhotos.js":
+/*!************************************!*\
+  !*** ./resources/js/itemPhotos.js ***!
+  \************************************/
+/***/ (() => {
+
+function imgSelect(imgs) {
+  document.getElementById("expandedImg").src = imgs.src;
+  var photos = document.getElementsByClassName('photo__small');
+
+  for (i = 0; i < photos.length; i++) {
+    photos[i].classList.remove('border');
+  }
+
+  imgs.classList.add('border');
+}
+
+function borderOnFirstPhotoOnPageLoad() {
+  var imgs = document.getElementsByClassName('photo__small');
+  imgs[0].className += ' border';
+}
+
+borderOnFirstPhotoOnPageLoad();
+var photos = document.getElementsByClassName("photo__small");
+Array.from(photos).forEach(function (photo) {
+  photo.addEventListener("click", function () {
+    imgSelect(photo);
+  });
+});
 
 /***/ }),
 

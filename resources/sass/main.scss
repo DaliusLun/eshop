@@ -38,22 +38,27 @@
         .item__sale {
             position: absolute;
             border-radius: 2px;
-            height:28px;
-            width: 28px;
+            height: 30px;
+            width: 30px;
             font-size: 16px;
             text-align: center;
             background-color: green;
             color: white;
             vertical-align: middle;
+            z-index: 3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             
         }
         .item__name {
-
+            display: block;
         }
         .item__photo {
             display: block;
             height: 150px;
             position: relative;
+            z-index: 2;
 
             img {
                 position: absolute;
@@ -135,21 +140,31 @@
     border: 1px solid black;
 }
 
+.fa-home {
+    text-decoration: none;
+    color: #000 !important;
+    cursor: pointer;
+}
+
+.fa-home:hover {
+    text-decoration: underline;
+}
+
 @media screen and (max-width: 992px) {
     .item-container {
-        grid-template-columns: auto auto auto;
+        grid-template-columns: repeat(3, 1fr);
     }
   }
 
   @media screen and (max-width: 768px) {
     .item-container {
-        grid-template-columns: auto auto;
+        grid-template-columns: repeat(2, 1fr);
     }
   }
 
 @media screen and (max-width: 480px) {
     .item-container {
-        grid-template-columns: auto;
+        grid-template-columns: repeat(1, 1fr);
     }
   }
 

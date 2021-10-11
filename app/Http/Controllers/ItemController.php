@@ -11,6 +11,7 @@ use App\Models\Parameter;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 use Str;
+use Validator;
 
 class ItemController extends Controller
 {
@@ -47,6 +48,29 @@ class ItemController extends Controller
      */
     public function store(Request $request, Category $category)
     {
+        $validator = Validator::make($request->all(),
+        [
+            'name' => ['required'],
+            'price' => ['required'],
+            'description' => ['required'],
+            'manufacturer' => ['required'],
+            'quantity' => ['required'],
+            'discount' => ['required'],
+        ],
+        [
+            'name.required' => 'Neužpildytas laukas Pavadinimas',
+            'price.required' => 'Neužpildytas laukas Kaina',
+            'description.required' => 'Neužpildytas laukas Aprašymas',
+            'manufacturer.required' => 'Neužpildytas laukas Gamintojas',
+            'quantity.required' => 'Neužpildytas laukas Kiekis',
+            'discount.required' => 'Neužpildytas laukas Nuolaida',
+        ]
+        );
+        if ($validator->fails()) {
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        }
+
         $item = new Item;
         $item->name = $request->name;
         $item->price = $request->price;
@@ -83,7 +107,7 @@ class ItemController extends Controller
             }
         }
 
-        return redirect()->route('category.map',[$category->id])->with('success_message', 'Sekmingai įrašytas.');
+        return redirect()->route('category.map',[$category->id])->with('success_message', 'Prekė sėkmingai įrašyta.');
     }
 
     /**
@@ -139,7 +163,7 @@ class ItemController extends Controller
         // return redirect()->route('category.index')->with('success_message', 'Sekmingai pakeistas.');
 
         $category = Category::find($request->category_id);
-        return redirect()->route('category.map',[$category->id])->with('success_message', 'Sekmingai įrašytas.');
+        return redirect()->route('category.map',[$category->id])->with('success_message', 'Prekė sėkmingai atnaujinta.');
 
     }
 

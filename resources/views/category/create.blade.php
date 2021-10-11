@@ -13,13 +13,13 @@
                      <input type="text" name="name"  class="form-control" value="">
                      <input type="hidden" name="category_id" value="{{$categoryId}}">
                   </div>
-                 <br>
+                  <br>
                   <div class="form-group">
                      <label>Priskiriami parametrai</label>
                      <select class="form-control" name="parameters[]" multiple>
                         @foreach ($parameters as $parameter)
                            <option value="{{$parameter->id}}"> 
-                                 {{$parameter->title}} {{$parameter->data_type}}
+                              {{$parameter->title}} {{$parameter->data_type}}
                            </option>
                         @endforeach
                      </select>

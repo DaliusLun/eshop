@@ -4,6 +4,8 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+const { isSet } = require('lodash');
+
 require('./bootstrap');
 
 window.Vue = require('vue').default;
@@ -32,4 +34,7 @@ const app = new Vue({
 });
 
 
-require('./API');
+var itemblade =  document.getElementById('itemblade');
+if (typeof(itemblade) != 'undefined' && itemblade != null) {
+    require('./itemPhotos');
+}
