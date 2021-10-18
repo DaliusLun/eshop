@@ -35,8 +35,15 @@ class CategoryController extends Controller
         foreach ($_SESSION['heart'] as $favorite) {
             $items[] = Item::where('id', '=', $favorite)->get()->first();
         }
-
         return view('category.favorites',['items'=> $items]);
+    }
+        public function basket()
+    {
+        $items = [];
+        foreach ($_SESSION['basket'] as $basket) {
+            $items[] = Item::where('id', '=', $basket)->get()->first();
+        }
+        return view('category.basket',['items'=> $items]);
     }
 
     public function map(Category $category)

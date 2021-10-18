@@ -28,6 +28,8 @@ Route::group(['prefix' => 'categories'], function(){
     Route::get('', [CategoryController::class, 'index'])->name('category.index');
     Route::get('map/{category}', [CategoryController::class, 'map'])->name('category.map');
     Route::get('favorites', [CategoryController::class, 'favorites'])->name('category.favorites');
+    Route::get('basket', [CategoryController::class, 'basket'])->name('category.basket');
+
     Route::get('create/{id}', [CategoryController::class, 'create'])->name('category.create');
     Route::post('store', [CategoryController::class, 'store'])->name('category.store');
     Route::get('edit/{category}', [CategoryController::class, 'edit'])->name('category.edit');
@@ -62,4 +64,6 @@ Route::group(['prefix' => 'categories'], function(){
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('heart', [ItemController::class, 'heart'])->name('item.heart');
+Route::post('basket', [ItemController::class, 'basket'])->name('item.basket');
+
 

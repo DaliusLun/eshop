@@ -39,5 +39,7 @@ if (typeof(itemblade) != 'undefined' && itemblade != null) {
     require('./itemPhotos');
 }
 
-    require('./heart');
+require('./heart');
+require('./basket');
+    
 

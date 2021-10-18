@@ -41,15 +41,20 @@
                                 Pradžia<span class="sr-only"></span>
                             </a>
                         </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{route('category.favorites')}}">
-                                Įsimintos prekės<span class="sr-only"></span>
-                            </a>
-                        </li>
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{route('category.favorites')}}">
+                                Įsimintos prekės ({{count($_SESSION["heart"])}})<span class="sr-only"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{route('category.basket')}}">
+                                Prekių krepšelis ({{count($_SESSION["basket"])}})<span class="sr-only"></span>
+                            </a>
+                        </li>
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">

@@ -139,21 +139,33 @@ class ItemController extends Controller
 
     public function heart(Request $request)
     {
-        // $id = ((($request->id/17)-7)/7); //fake id create
-        // $item = Item::where("id",'=', $id)->get();
         if (!isset($_SESSION['heart'])) {
             $_SESSION['heart'] = [];
         }
-
         if (($key = array_search($request->id, $_SESSION['heart'])) !== false) {
             unset($_SESSION['heart'][$key]);
         } else {
             $_SESSION['heart'][] = $request->id;
         }
-        
         return Response::json([
             'status' => 200,
             'session' => $_SESSION['heart']
+        ]);
+    }
+
+    public function basket(Request $request)
+    {
+        if (!isset($_SESSION['basket'])) {
+            $_SESSION['basket'] = [];
+        }
+        if (($key = array_search($request->id, $_SESSION['basket'])) !== false) {
+            unset($_SESSION['basket'][$key]);
+        } else {
+            $_SESSION['basket'][] = $request->id;
+        }
+        return Response::json([
+            'status' => 200,
+            'session' => $_SESSION['basket']
         ]);
     }
 

@@ -8,13 +8,17 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header heart__anchor">
                     <a class="fa fa-home" href="{{route('category.index')}}"></a> >
                     @foreach ($categories as $category)
                         <a class="chain" href="{{route('category.map',$category)}}">{{$category->name}}</a> >
                     @endforeach
                     <a class="chain chain-last" href="{{route('item.show',((($item->id*7)+7)*17))}}">{{$item->name}}</a>
+                    <a href="javascript:void(0)/{{$item->id}}">
+                        <div class="heart fa heart__item {{$item->heart()}}"></div>
+                    </a>
                 </div>
+
                 @if(count($item->photos)>0)
                 <div class="container__photos">
                     <div class="photos__column">
@@ -26,9 +30,12 @@
                     </div>
 
                     <div class="container">
+
                         <img class="photo__big" id="expandedImg" src="{{asset('/itemPhotos/big/'.$item->photos[0]->name)}}" >
                     </div>
-                </div>@endif
+
+                </div>
+                @endif
 
                 <div class="card-body">
                 <table class="table">
@@ -67,6 +74,7 @@
         </div>
     </div>
 </div>
-
-
 @endsection
+<script>
+var heart = "{{route('item.heart')}}";
+</script>

@@ -93,6 +93,10 @@
             font-size: 15px;
         }
 
+        .inbasket {
+            background-color: green;
+        }
+
     }
 
     .item:hover {
@@ -127,8 +131,10 @@
     .container {
         .photo__big {
             max-width: 100%;
-            padding:5px;
+            padding-top: 5px;
             margin: 5px;
+            padding-right: 9%;
+
         }
     }
 }
@@ -147,9 +153,30 @@
     text-decoration: underline;
 }
 
+.heart:hover {
+    color: green;
+    transition: 0.5s;
+    font-size: 30px;
+    transform: scale(1.2);
+}
 .fa-heart {
     color: green;
 }
+
+.heart__anchor{
+    position: relative;
+    z-index: 1;
+}
+.heart__item {
+    font-size: 30px;
+    position: absolute;
+    right: 3%;
+    top: 120%;
+    z-index: 2;
+}
+
+
+
 // .container__column1 {
 //     width:30%;
 // }

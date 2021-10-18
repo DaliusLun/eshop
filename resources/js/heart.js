@@ -1,5 +1,3 @@
-
-
 Array.from(document.getElementsByClassName("heart")).forEach(item => {
     item.addEventListener('click', function() {
         console.log(this.parentElement.getAttribute("href").replace("javascript:void(0)/",""));
@@ -14,4 +12,3 @@ Array.from(document.getElementsByClassName("heart")).forEach(item => {
         });
     });
 });
-

@@ -39,4 +39,20 @@ class Item extends Model
             return 'fa-heart-o';
         }
     }
+    public function basket_name()
+    {
+        if(isset($_SESSION['basket']) && in_array($this->id, $_SESSION['basket'])) {
+            return 'Prekė krepšelyje';
+        } else {
+            return 'Pridėti į krepšelį';
+        }
+    }
+
+    public function basket_class()
+    {
+        if(isset($_SESSION['basket']) && in_array($this->id, $_SESSION['basket'])) {
+            return 'btn-success';
+        } 
+    }
+    
 }
