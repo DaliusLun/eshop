@@ -12,9 +12,14 @@ use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 use Str;
 use Validator;
+use Response;
 
 class ItemController extends Controller
 {
+    public function __construct()
+    {
+        session_start();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -116,11 +121,40 @@ class ItemController extends Controller
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item, Request $request)
+    public function show(Item $item, Request $request, Category $category)
     {
         $id = ((($request->id/17)-7)/7); //fake id create
         $item = Item::where("id",'=', $id)->get();
-        return view('item.show',['item' => $item[0], 'id' => $id]);
+
+        $categoryId = $item[0]->category_id;
+        while ($categoryId!= NULL) {
+            $cat = Category::where("id",'=', $categoryId)->get();
+            $categories[] = $cat[0];
+            $categoryId = $cat[0]->category_id;
+            }
+        $categories = array_reverse($categories);
+
+        return view('item.show',['item' => $item[0], 'id' => $id, 'categories' => $categories]);
+    }
+
+    public function heart(Request $request)
+    {
+        // $id = ((($request->id/17)-7)/7); //fake id create
+        // $item = Item::where("id",'=', $id)->get();
+        if (!isset($_SESSION['heart'])) {
+            $_SESSION['heart'] = [];
+        }
+
+        if (($key = array_search($request->id, $_SESSION['heart'])) !== false) {
+            unset($_SESSION['heart'][$key]);
+        } else {
+            $_SESSION['heart'][] = $request->id;
+        }
+        
+        return Response::json([
+            'status' => 200,
+            'session' => $_SESSION['heart']
+        ]);
     }
 
     /**

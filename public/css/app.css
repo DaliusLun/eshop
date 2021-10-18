@@ -41,10 +41,8 @@
   height: 30px;
   width: 30px;
   font-size: 16px;
-  text-align: center;
   background-color: green;
   color: white;
-  vertical-align: middle;
   z-index: 3;
   display: flex;
   justify-content: center;
@@ -130,6 +128,10 @@
 
 .fa-home:hover {
   text-decoration: underline;
+}
+
+.fa-heart {
+  color: green;
 }
 
 @media screen and (max-width: 992px) {

@@ -12,6 +12,7 @@
                      <label>Pavadinimas</label>
                      <input type="text" name="name"  class="form-control" value="{{$category->name}}">
                   </div>
+                  
                   <div class="form-group">
                      <label>Tėvinė kategorija</label>
                      <select class="form-control" name="category_id">

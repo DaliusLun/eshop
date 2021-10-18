@@ -29,6 +29,16 @@ class CategoryController extends Controller
         return view('category.index',['categories'=> $categories,'chain'=>$_SESSION['chain']]);
     }
 
+    public function favorites()
+    {
+        $items = [];
+        foreach ($_SESSION['heart'] as $favorite) {
+            $items[] = Item::where('id', '=', $favorite)->get()->first();
+        }
+
+        return view('category.favorites',['items'=> $items]);
+    }
+
     public function map(Category $category)
     {
         $_SESSION['chain'][] = $category;
@@ -127,6 +137,7 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $category->name = $request->name;
+        // dd($request);
         $category->category_id = $request->category_id;
         $category->save();
         foreach ($category->parameters as $parameter) {
@@ -140,7 +151,13 @@ class CategoryController extends Controller
                 $category->parameters()->attach($parameter);
             }
         }
-        return redirect()->route('category.map',$request->category_id)->with('success_message', 'Kategorija sėkmingai atnaujinta.');
+
+        if($request->category_id == null) {
+            return redirect()->route('category.index')->with('success_message', 'Kategorija sėkmingai atnaujinta.');
+        }
+        else {
+            return redirect()->route('category.map',$request->category_id)->with('success_message', 'Kategorija sėkmingai atnaujinta.');
+        }
     }
 
     /**

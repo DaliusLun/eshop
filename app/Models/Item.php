@@ -31,4 +31,12 @@ class Item extends Model
             return "checked";
         }
     }
+    public function heart()
+    {
+        if(isset($_SESSION['heart']) && in_array($this->id, $_SESSION['heart'])) {
+            return 'fa-heart';
+        } else {
+            return 'fa-heart-o';
+        }
+    }
 }

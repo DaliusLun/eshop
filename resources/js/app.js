@@ -38,3 +38,6 @@ var itemblade =  document.getElementById('itemblade');
 if (typeof(itemblade) != 'undefined' && itemblade != null) {
     require('./itemPhotos');
 }
+
+    require('./heart');
+

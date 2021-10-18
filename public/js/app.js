@@ -2132,6 +2132,8 @@ if (typeof itemblade != 'undefined' && itemblade != null) {
   __webpack_require__(/*! ./itemPhotos */ "./resources/js/itemPhotos.js");
 }
 
+__webpack_require__(/*! ./heart */ "./resources/js/heart.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -2175,6 +2177,27 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/heart.js":
+/*!*******************************!*\
+  !*** ./resources/js/heart.js ***!
+  \*******************************/
+/***/ (() => {
+
+Array.from(document.getElementsByClassName("heart")).forEach(function (item) {
+  item.addEventListener('click', function () {
+    console.log(this.parentElement.getAttribute("href").replace("javascript:void(0)/", ""));
+    this.classList.toggle("fa-heart");
+    this.classList.toggle("fa-heart-o");
+    axios.post(heart, {
+      id: this.parentElement.getAttribute("href").replace("javascript:void(0)/", "")
+    }).then(function (response) {
+      console.log(response.data);
+    });
+  });
+});
 
 /***/ }),
 

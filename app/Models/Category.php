@@ -12,4 +12,5 @@ class Category extends Model
     {
         return $this->belongsToMany(Parameter::class,'category_parameters');
     }
+    
 }
