@@ -35,9 +35,19 @@ const app = new Vue({
 
 
 var itemblade =  document.getElementById('itemblade');
-if (typeof(itemblade) != 'undefined' && itemblade != null) {
-    require('./itemPhotos');
+if (typeof (itemblade) != 'undefined' && itemblade != null) {
+    let element = document.getElementsByClassName('photo__small').length;
+    console.log(element.length);
+    if (element < 0)
+    {
+        require('./itemPhotos');
+    }
+    
+    require('./quantity');
 }
+require('./quantity');
+
+
 
 require('./heart');
 require('./basket');

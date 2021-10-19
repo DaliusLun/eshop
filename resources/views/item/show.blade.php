@@ -24,13 +24,12 @@
                     <div class="photos__column">
                     <form name="form" action="" method="get">
                         @foreach ($item->photos as $photo)
-                            <img class="photo__small" src="{{asset('/itemPhotos/big/'.$photo->name)}}" >
+                            <img class="photo__small" src="{{asset('/itemPhotos/big/'.$photo->name)}}">
                         @endforeach
                     </form>
                     </div>
 
                     <div class="container">
-
                         <img class="photo__big" id="expandedImg" src="{{asset('/itemPhotos/big/'.$item->photos[0]->name)}}" >
                     </div>
 
@@ -38,6 +37,30 @@
                 @endif
 
                 <div class="card-body">
+
+<!-- Change the `data-field` of buttons and `name` of input field's for multiple plus minus buttons-->
+<div class="input-group plus-minus-input">
+  <div class="input-group-button">
+    <button type="button" class="button hollow circle" data-quantity="minus" data-field="quantity">
+      <i class="fa fa-minus" aria-hidden="true"></i>
+    </button>
+  </div>
+  <input class="input-group-field" type="number" name="quantity" value="1">
+  <div class="input-group-button">
+    <button type="button" class="button hollow circle" data-quantity="plus" data-field="quantity">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
+<br>
+
+
+
+
+                    <a href="javascript:void(0)/{{$item->id}}">
+                        <div class="btn btn-primary basket">Į krepšelį</div>
+                    </a>
+                    <br><br>
                 <table class="table">
                     <thead>
                         <a style="font-size:30px;font-weight:500;">{{$item->name}}</a>
@@ -77,4 +100,6 @@
 @endsection
 <script>
 var heart = "{{route('item.heart')}}";
+var basket = "{{route('item.basket')}}";
+
 </script>

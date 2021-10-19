@@ -40,10 +40,47 @@ class CategoryController extends Controller
         public function basket()
     {
         $items = [];
-        foreach ($_SESSION['basket'] as $basket) {
-            $items[] = Item::where('id', '=', $basket)->get()->first();
+        $uniqueID = [];
+        $uniqueItems = [];
+
+        if(isset($_SESSION['basket'])){
+            foreach ($_SESSION['basket'] as $basket) {
+                $items[] = Item::where('id', '=', $basket)->get()->first();
+                if ( ! in_array($basket, $uniqueID)) {
+                    $uniqueID[] = $basket;
+                    $uniqueItems[] = Item::where('id', '=', $basket)->get()->first();
+                }
+            }
         }
-        return view('category.basket',['items'=> $items]);
+        return view('category.basket',['items'=> $items,'uniqueItems'=> $uniqueItems]);
+    }
+
+    public function updateBasket()
+    {
+        unset($_SESSION['basket']);
+        foreach($_POST as $key => $quantity) {
+            if (strpos($key, 'quantity') === 0) {
+                $id = str_replace('quantity',"",$key);
+                for ($i=0; $i < $quantity; $i++) { 
+                    $_SESSION['basket'][] = $id;
+                }
+            }
+        }
+        
+        $items = [];
+        $uniqueID = [];
+        $uniqueItems = [];
+        if(isset($_SESSION['basket'])){
+            foreach ($_SESSION['basket'] as $basket) {
+                $items[] = Item::where('id', '=', $basket)->get()->first();
+                if ( ! in_array($basket, $uniqueID)) {
+                    $uniqueID[] = $basket;
+                    $uniqueItems[] = Item::where('id', '=', $basket)->get()->first();
+                }
+            }
+        }
+
+        return view('category.basket',['items'=> $items,'uniqueItems'=> $uniqueItems]);
     }
 
     public function map(Category $category)

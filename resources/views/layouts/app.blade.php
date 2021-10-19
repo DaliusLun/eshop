@@ -47,12 +47,14 @@
                         <!-- Authentication Links -->
                         <li class="nav-item active">
                             <a class="nav-link" href="{{route('category.favorites')}}">
-                                Įsimintos prekės ({{count($_SESSION["heart"])}})<span class="sr-only"></span>
+                                Įsimintos prekės ({{isset($_SESSION["heart"]) ? count($_SESSION["heart"]) :"0"}})
+                                <span class="sr-only"></span>
                             </a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link" href="{{route('category.basket')}}">
-                                Prekių krepšelis ({{count($_SESSION["basket"])}})<span class="sr-only"></span>
+                                Prekių krepšelis ({{isset($_SESSION["basket"]) ? count($_SESSION["basket"]) :"0"}})
+                                <span class="sr-only"></span>
                             </a>
                         </li>
                         @guest

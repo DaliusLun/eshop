@@ -158,11 +158,11 @@ class ItemController extends Controller
         if (!isset($_SESSION['basket'])) {
             $_SESSION['basket'] = [];
         }
-        if (($key = array_search($request->id, $_SESSION['basket'])) !== false) {
-            unset($_SESSION['basket'][$key]);
-        } else {
+        // if (($key = array_search($request->id, $_SESSION['basket'])) !== false) {
+        //     unset($_SESSION['basket'][$key]);
+        // } else {
             $_SESSION['basket'][] = $request->id;
-        }
+        // }
         return Response::json([
             'status' => 200,
             'session' => $_SESSION['basket']

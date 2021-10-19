@@ -29,7 +29,7 @@ Route::group(['prefix' => 'categories'], function(){
     Route::get('map/{category}', [CategoryController::class, 'map'])->name('category.map');
     Route::get('favorites', [CategoryController::class, 'favorites'])->name('category.favorites');
     Route::get('basket', [CategoryController::class, 'basket'])->name('category.basket');
-
+    Route::post('updateBasket', [CategoryController::class, 'updateBasket'])->name('category.updateBasket');
     Route::get('create/{id}', [CategoryController::class, 'create'])->name('category.create');
     Route::post('store', [CategoryController::class, 'store'])->name('category.store');
     Route::get('edit/{category}', [CategoryController::class, 'edit'])->name('category.edit');

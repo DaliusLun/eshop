@@ -2,54 +2,70 @@
 
 @section('content')
 <div class="container">
-    @if(count($items) > 0) 
-        <div class="item-container">
-            @foreach ($items as $item)
-                @if($item->status!=0 || (Auth::user() && Auth::user ()->isAdmin()))
-                    <div class="item {{$item->ifDisabled()}}">
-                        <a href="{{route('item.show',((($item->id*7)+7)*17))}}">
-                            @if($item->discount>0)
-                                <div class="item__sale">%</div>
-                            @endif
-                            <div class="item__photo">
-                                @if (count($item->photos)>0)
-                                    <img src="{{asset('/itemPhotos/small/'.$item->photos[0]->name)}}" alt="">
-                                @else
-                                    <img src="{{asset('/itemPhotos/small/default.png')}}" alt="">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+               <div class="card-header">Prekių krepšelis</div>
+               <div class="card-body">
+                   @if(count($uniqueItems)>0)
+               <form action="{{route('category.updateBasket')}}" method="post">
+               <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th scope="col">Pavadinimas</th>
+                            <th style="text-align:center;" scope="col">Vnt. kaina (EUR)</th>
+                            <th style="text-align:center;" scope="col">Kiekis</th>
+                            <th style="text-align:center;" scope="col">Suma (EUR)</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach ($uniqueItems as $item)
+                        <tr>
+                            <th>
+                                @if(isset($item->photos[0]))
+                                    <img class="photo__extrasmall" src="{{asset('/itemPhotos/small/'.$item->photos[0]->name)}}">
                                 @endif
-                            </div>
-                            <div class="item__name">{{$item->name}}</div>
-                            @if($item->discount>0)
-                                <div class="item__price discount">{{$item->price}} €</div>
-                                <div class="item__price with-discount">{{$item->price - $item->discount}} €</div>
-                            @else
-                                <div class="item__price">{{$item->price - $item->discount}} €</div>
-                            @endif
-                            @if($item->quantity == 0)
-                                <div class="sold">Prekė išparduota</div>
-                            @elseif($item->status == 0)
-                                <div class="notavailable">Prekė šiuo metu neparduodama</div>
-                            @else
-                                <a href="javascript:void(0)/{{$item->id}}">
-                                    <div class="btn btn-primary basket {{$item->basket_class()}}">{{$item->basket_name()}}</div>
-                                </a>
-                            @endif
-                            <a href="javascript:void(0)/{{$item->id}}">
-                                <div class="heart fa {{$item->heart()}}"></div>
-                            </a>
-                        </a>
-                    </div>
-                @endif
-            @endforeach
+                            </th>
+                            <th scope="row" ><a href="{{route('item.show',((($item->id*7)+7)*17))}}">{{$item->name}}</a></th>
+                            <th style="text-align:center;" scope="row">{{$item->price-$item->discount}}</th>
+
+                            <th>
+                                <div class="input-group plus-minus-input">
+                                <div class="input-group-button">
+                                    <button type="button" class="button hollow circle" data-quantity="minus" data-field="quantity{{$item->id}}">
+                                        <i class="fa fa-minus" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <input class="input-group-field" type="number" name="quantity{{$item->id}}" value="{{array_count_values($_SESSION['basket'])[$item->id]}}">
+                                <div class="input-group-button">
+                                    <button type="button" class="button hollow circle" data-quantity="plus" data-field="quantity{{$item->id}}">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                </div>
+                            </th>
+                            <th style="text-align:center;" scope="row">{{($item->price-$item->discount)*array_count_values($_SESSION['basket'])[$item->id]}}</th>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                    </table>
+                    
+                    @csrf
+                    <button class="btn btn-primary" type="submit">Atnaujinti krepšelį</button>
+                    </form>
+                    @else
+                        <h3>Prekių krepšelis tuščias</h3>
+                    @endif
+                </div>
+            </div>
         </div>
-    @endif
-    @if(count($items) == 0)
-        <h3>Jūs neturite įsimintų prekių. Siūlome pasižvalgyti po mūsų prekių katalogą, <a href="{{route('category.index')}}">paspaudę čia</a>.</h3>
-    @endif
     </div>
+</div>
 @endsection
 <script>
-var heart = "{{route('item.heart')}}";
+
 var basket = "{{route('item.basket')}}";
 
 </script>
