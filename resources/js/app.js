@@ -46,6 +46,8 @@ if (typeof (itemblade) != 'undefined' && itemblade != null) {
     require('./quantity');
 }
 require('./quantity');
+require('./countTotal');
+
 
 
 

@@ -2141,6 +2141,8 @@ if (typeof itemblade != 'undefined' && itemblade != null) {
 
 __webpack_require__(/*! ./quantity */ "./resources/js/quantity.js");
 
+__webpack_require__(/*! ./countTotal */ "./resources/js/countTotal.js");
+
 __webpack_require__(/*! ./heart */ "./resources/js/heart.js");
 
 __webpack_require__(/*! ./basket */ "./resources/js/basket.js");
@@ -2158,7 +2160,6 @@ Array.from(document.getElementsByClassName("basket")).forEach(function (item) {
     this.classList.add("btn-success");
     this.innerHTML = "Prekė krepšelyje ✓";
     input = "1";
-    console.log(document.getElementsByClassName("input-group-field").value);
 
     if (document.getElementsByClassName("input-group-field").length > 0) {
       input = document.getElementsByClassName("input-group-field")[0].value;
@@ -2217,6 +2218,25 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/countTotal.js":
+/*!************************************!*\
+  !*** ./resources/js/countTotal.js ***!
+  \************************************/
+/***/ (() => {
+
+prices = document.getElementsByClassName('itemtotalprice');
+sum = 0;
+
+for (var i = 0; i < prices.length; i++) {
+  sum += parseInt(document.getElementsByClassName('itemtotalprice')[i].value);
+}
+
+console.log(sum);
+console.log(document.getElementsByClassName('total'));
+document.getElementsByClassName('total')[0].innerHTML = sum;
 
 /***/ }),
 
@@ -2285,11 +2305,11 @@ jQuery(document).ready(function () {
     // Stop acting like a button
     e.preventDefault(); // Get the field name
 
-    fieldName = $(this).attr('data-field');
-    console.log(fieldName); // Get its current value
+    fieldName = $(this).attr('data-field'); // console.log(fieldName);
+    // Get its current value
 
-    var currentVal = parseInt($('input[name=' + fieldName + ']').val());
-    console.log(currentVal); // If is not undefined
+    var currentVal = parseInt($('input[name=' + fieldName + ']').val()); // console.log(currentVal);
+    // If is not undefined
 
     if (!isNaN(currentVal)) {
       // Increment

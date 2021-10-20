@@ -5,10 +5,10 @@ jQuery(document).ready(function () {
         e.preventDefault();
         // Get the field name
         fieldName = $(this).attr('data-field');
-        console.log(fieldName);
+        // console.log(fieldName);
         // Get its current value
         var currentVal = parseInt($('input[name=' + fieldName + ']').val());
-        console.log(currentVal);
+        // console.log(currentVal);
         // If is not undefined
         if (!isNaN(currentVal)) {
             // Increment

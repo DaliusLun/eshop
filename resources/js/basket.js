@@ -3,7 +3,6 @@ Array.from(document.getElementsByClassName("basket")).forEach(item => {
         this.classList.add("btn-success");
             this.innerHTML = "Prekė krepšelyje ✓";
         input = "1";
-        console.log(document.getElementsByClassName("input-group-field").value);
         if (document.getElementsByClassName("input-group-field").length > 0) {
             input = document.getElementsByClassName("input-group-field")[0].value;
         }

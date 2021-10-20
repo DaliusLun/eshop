@@ -44,6 +44,7 @@ class CategoryController extends Controller
         $uniqueItems = [];
 
         if(isset($_SESSION['basket'])){
+            sort($_SESSION['basket']);
             foreach ($_SESSION['basket'] as $basket) {
                 $items[] = Item::where('id', '=', $basket)->get()->first();
                 if ( ! in_array($basket, $uniqueID)) {
@@ -57,31 +58,82 @@ class CategoryController extends Controller
 
     public function updateBasket()
     {
-        unset($_SESSION['basket']);
-        foreach($_POST as $key => $quantity) {
-            if (strpos($key, 'quantity') === 0) {
-                $id = str_replace('quantity',"",$key);
-                for ($i=0; $i < $quantity; $i++) { 
+        $validator = [];
+        $quantity = [];
+        foreach ($_POST as $key => $value) {
+            if(str_contains($key, 'quantity')) {
+                $quantity[$key] = $value;
+            }
+        }
+        $qu = array_keys($quantity);
+        for ($i=0; $i < count($qu); $i++) { 
+            $id = str_replace("quantity","",$qu[$i]);
+            $item = Item::where('id', '=', $id)->get()->first();
+            if($item->quantity < $quantity[$qu[$i]]) {
+                $validator[] = "Viršytas prekės ".$item->name." likutis. Likutis sandėlyje: ".$item->quantity;
+            } else {
+                $_SESSION['basket'] = \array_diff($_SESSION['basket'], [$id]);
+                for ($a=0; $a < $_POST['quantity'.$id]; $a++) { 
                     $_SESSION['basket'][] = $id;
                 }
             }
         }
-        
-        $items = [];
-        $uniqueID = [];
-        $uniqueItems = [];
-        if(isset($_SESSION['basket'])){
-            foreach ($_SESSION['basket'] as $basket) {
-                $items[] = Item::where('id', '=', $basket)->get()->first();
-                if ( ! in_array($basket, $uniqueID)) {
-                    $uniqueID[] = $basket;
-                    $uniqueItems[] = Item::where('id', '=', $basket)->get()->first();
-                }
-            }
+        if($validator !== []){
+            return redirect()->back()->withErrors([$validator]);
+        } else {
+            return redirect()->back()->with('success_message', 'Krepšelis atnaujintas.');
         }
-
-        return view('category.basket',['items'=> $items,'uniqueItems'=> $uniqueItems]);
     }
+
+
+
+    // public function updateBasket()
+    // {
+    //     $validator = [];
+    //     $quantity = [];
+    //     foreach ($_POST as $key => $value) {
+    //         if(str_contains($key, 'quantity')) {
+    //             $quantity[$key] = $value;
+    //         }
+    //     }
+    //     $qu = array_keys($quantity);
+    //     for ($i=0; $i < count($quantity); $i++) { 
+    //         $id = str_replace("quantity","",$qu[$i]);
+    //         $item = Item::where('id', '=', $id)->get()->first();
+    //         if($item->quantity < $quantity[$qu[$i]]) {
+    //             $validator[] = "Viršytas prekės ".$item->name." likutis. ";
+    //         }
+    //     }
+
+    //     if($validator !== []){
+    //         return redirect()->back()->withErrors([$validator,"Krepšelio atnaujinimas nutrauktas"]);
+    //     }
+
+    //     unset($_SESSION['basket']);
+    //     foreach($_POST as $key => $quantity) {
+    //         if (strpos($key, 'quantity') === 0) {
+    //             $id = str_replace('quantity',"",$key);
+    //             for ($i=0; $i < $quantity; $i++) { 
+    //                 $_SESSION['basket'][] = $id;
+    //             }
+    //         }
+    //     }
+        
+    //     $items = [];
+    //     $uniqueID = [];
+    //     $uniqueItems = [];
+    //     if(isset($_SESSION['basket'])){
+    //         foreach ($_SESSION['basket'] as $basket) {
+    //             $items[] = Item::where('id', '=', $basket)->get()->first();
+    //             if ( ! in_array($basket, $uniqueID)) {
+    //                 $uniqueID[] = $basket;
+    //                 $uniqueItems[] = Item::where('id', '=', $basket)->get()->first();
+    //             }
+    //         }
+    //     }
+
+    //     return redirect()->back()->with('success_message', 'Krepšelis atnaujintas.');;
+    // }
 
     public function map(Category $category)
     {
