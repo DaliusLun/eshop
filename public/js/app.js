@@ -2129,19 +2129,24 @@ var app = new Vue({
 var itemblade = document.getElementById('itemblade');
 
 if (typeof itemblade != 'undefined' && itemblade != null) {
-  var element = document.getElementsByClassName('photo__small').length;
-  console.log(element.length);
+  var element = document.getElementsByClassName('photo__small');
 
-  if (element < 0) {
+  if (element.length > 0) {
     __webpack_require__(/*! ./itemPhotos */ "./resources/js/itemPhotos.js");
   }
 
   __webpack_require__(/*! ./quantity */ "./resources/js/quantity.js");
 }
 
-__webpack_require__(/*! ./quantity */ "./resources/js/quantity.js");
+var basket = document.getElementsByClassName('total');
 
-__webpack_require__(/*! ./countTotal */ "./resources/js/countTotal.js");
+if (typeof basket != 'undefined' && basket != null && basket.length > 0) {
+  __webpack_require__(/*! ./countTotal */ "./resources/js/countTotal.js");
+
+  __webpack_require__(/*! ./quantity */ "./resources/js/quantity.js");
+}
+
+;
 
 __webpack_require__(/*! ./heart */ "./resources/js/heart.js");
 
@@ -2234,8 +2239,6 @@ for (var i = 0; i < prices.length; i++) {
   sum += parseInt(document.getElementsByClassName('itemtotalprice')[i].value);
 }
 
-console.log(sum);
-console.log(document.getElementsByClassName('total'));
 document.getElementsByClassName('total')[0].innerHTML = sum;
 
 /***/ }),
@@ -2248,7 +2251,6 @@ document.getElementsByClassName('total')[0].innerHTML = sum;
 
 Array.from(document.getElementsByClassName("heart")).forEach(function (item) {
   item.addEventListener('click', function () {
-    console.log(this.parentElement.getAttribute("href").replace("javascript:void(0)/", ""));
     this.classList.toggle("fa-heart");
     this.classList.toggle("fa-heart-o");
     axios.post(heart, {

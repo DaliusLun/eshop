@@ -36,18 +36,20 @@ const app = new Vue({
 
 var itemblade =  document.getElementById('itemblade');
 if (typeof (itemblade) != 'undefined' && itemblade != null) {
-    let element = document.getElementsByClassName('photo__small').length;
-    console.log(element.length);
-    if (element < 0)
+    let element = document.getElementsByClassName('photo__small');
+    if (element.length > 0)
     {
         require('./itemPhotos');
     }
-    
     require('./quantity');
 }
-require('./quantity');
-require('./countTotal');
 
+
+let basket = document.getElementsByClassName('total');
+if (typeof (basket) != 'undefined' && basket != null && basket.length>0) {
+    require('./countTotal');
+    require('./quantity');
+};
 
 
 
